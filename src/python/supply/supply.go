@@ -345,6 +345,26 @@ func (s *Supplier) InstallPipPop() error {
 	return nil
 }
 
+func (s *Supplier) InstallZbar() error {
+
+	s.Log.Info("------> Installing Zbar libs")
+
+cmd := exec.Command("pip", "install", "pyzbar", "[scripts]")
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
+			s.Log.Debug("[Zbar Installation Error]: %s", err)
+			s.Log.Debug(msg)
+			return err
+	} else {
+			msg := fmt.Sprintf("\n %s", output)
+			s.Log.Info(msg)
+			s.Log.Info("------> Zbar libs installed ")
+	}
+	return nil
+}
+
 func (s *Supplier) InstallPipEnv() error {
 	requirementstxtExists, err := libbuildpack.FileExists(filepath.Join(s.Stager.BuildDir(), "requirements.txt"))
 	if err != nil {
