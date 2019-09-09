@@ -843,46 +843,6 @@ cmd := exec.Command("brew", "install", "zbar")
 	return nil
 }
 
-func (s *Supplier) InstallLibZbar() error {
-
-	s.Log.Info("------> Installing LibZbar libs")
-
-cmd := exec.Command("sudo", "apt-get", "install", "libzbar-dev", "libzbar0")
-	output, err := cmd.CombinedOutput()
-
-	if err != nil {
-			msg := fmt.Sprintf("LibZbar libs installation failed due to: \n %s", output)
-			s.Log.Debug("[LibZbar Installation Error]: %s", err)
-			s.Log.Debug(msg)
-			return err
-	} else {
-			msg := fmt.Sprintf("\n %s", output)
-			s.Log.Info(msg)
-			s.Log.Info("------> LibZbar libs installed ")
-	}
-	return nil
-}
-
-func (s *Supplier) InstallZbar() error {
-
-	s.Log.Info("------> Installing Zbar libs")
-
-cmd := exec.Command("pip", "install", "pyzbar", "[scripts]")
-	output, err := cmd.CombinedOutput()
-
-	if err != nil {
-			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
-			s.Log.Debug("[Zbar Installation Error]: %s", err)
-			s.Log.Debug(msg)
-			return err
-	} else {
-			msg := fmt.Sprintf("\n %s", output)
-			s.Log.Info(msg)
-			s.Log.Info("------> Zbar libs installed ")
-	}
-	return nil
-}
-
 func indentWriter(writer io.Writer) io.Writer {
 	return text.NewIndentWriter(writer, []byte("       "))
 }
