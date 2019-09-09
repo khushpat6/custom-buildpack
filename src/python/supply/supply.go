@@ -822,7 +822,6 @@ cmd := exec.Command("python", "pip", "install", "pyzbar")
 	}
 	return nil
 }
-
 if err := s.InstallZbar(); err != nil {
 	s.Log.Error("Could not install Zbar: %v", err)
 	return err
