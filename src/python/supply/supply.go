@@ -847,7 +847,7 @@ func (s *Supplier) InstallZbar() error {
 
 	s.Log.Info("------> Installing Zbar libs")
 
-cmd := exec.Command("python", "pip", "install", "pyzbar")
+cmd := exec.Command("pip", "install", "pyzbar", "[scripts]")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
