@@ -824,8 +824,8 @@ cmd := exec.Command("python", "pip", "install", "pyzbar")
 }
 
 	if err := s.InstallZbar(); err != nil {
-					s.Log.Error("Could not install Zbar: %v", err)
-					return err
+		s.Log.Error("Could not install Zbar: %v", err)
+		return err
 	}
 
 func indentWriter(writer io.Writer) io.Writer {
