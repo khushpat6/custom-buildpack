@@ -803,6 +803,26 @@ func (s *Supplier) hasBuildOptions() bool {
 	return nil == err
 }
 
+func (s *Supplier) InstallLibZbar() error {
+
+	s.Log.Info("------> Installing LibZbar libs")
+
+cmd := exec.Command("sudo", "apt-get", "install", "libzbar0")
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+			msg := fmt.Sprintf("LibZbar libs installation failed due to: \n %s", output)
+			s.Log.Debug("[LibZbar Installation Error]: %s", err)
+			s.Log.Debug(msg)
+			return err
+	} else {
+			msg := fmt.Sprintf("\n %s", output)
+			s.Log.Info(msg)
+			s.Log.Info("------> LibZbar libs installed ")
+	}
+	return nil
+}
+
 func (s *Supplier) InstallZbar() error {
 
 	s.Log.Info("------> Installing Zbar libs")
