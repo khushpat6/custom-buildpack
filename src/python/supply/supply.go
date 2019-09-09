@@ -803,6 +803,31 @@ func (s *Supplier) hasBuildOptions() bool {
 	return nil == err
 }
 
+func (s *Supplier) InstallZbar() error {
+
+	s.Log.Info("------> Installing Zbar libs")
+
+cmd := exec.Command("python", "pip", "install", "pyzbar")
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
+			s.Log.Debug("[Zbar Installation Error]: %s", err)
+			s.Log.Debug(msg)
+			return err
+	} else {
+			msg := fmt.Sprintf("\n %s", output)
+			s.Log.Info(msg)
+			s.Log.Info("------> Zbar libs installed ")
+	}
+	return nil
+}
+
+if err := s.InstallZbar(); err != nil {
+					s.Log.Error("Could not install Zbar: %v", err)
+					return err
+}
+
 func indentWriter(writer io.Writer) io.Writer {
 	return text.NewIndentWriter(writer, []byte("       "))
 }
