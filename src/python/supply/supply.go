@@ -179,23 +179,22 @@ func RunPython(s *Supplier) error {
 	return nil
 }
 
+func (s *Supplier) InstallZbar() error {
 
-func (s *Supplier) InstallPyZbar() error {
+	s.Log.Info("------> Installing Zbar libs")
 
-	s.Log.Info("------> Installing PyZbar libs")
-
-cmd := exec.Command("python", "-m", "pip", "install", "pyzbar")
+cmd := exec.Command("sudo", "apt-get", "install", "libzbar0")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
-			msg := fmt.Sprintf("PyZbar libs installation failed due to: \n %s", output)
-			s.Log.Debug("[PyZbar Installation Error]: %s", err)
+			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
+			s.Log.Debug("[Zbar Installation Error]: %s", err)
 			s.Log.Debug(msg)
 			return err
 	} else {
 			msg := fmt.Sprintf("\n %s", output)
 			s.Log.Info(msg)
-			s.Log.Info("------> PyZbar libs installed ")
+			s.Log.Info("------> Zbar libs installed ")
 	}
 	return nil
 }
