@@ -186,7 +186,7 @@ func (s *Supplier) InstallNumPy() error {
 
 	s.Log.Info("------> Installing ML libs")
 
-    cmd := exec.Command("python", "-m", "pip", "install", "numpy", "scipy", "matplotlib")
+    cmd := exec.Command("python", "-m", "pip", "install", "numpy", "scipy", "matplotlib", "pyzbar")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
