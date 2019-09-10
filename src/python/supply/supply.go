@@ -105,10 +105,7 @@ func RunPython(s *Supplier) error {
 		s.Log.Error("Could not install pipenv: %v", err)
 		return err
 	}
-	if err := s.InstallNumPy(); err != nil {
-		s.Log.Error("Could not install numpy: %v", err)
-		return err
-	}
+
 	if err := s.HandleRequirementstxt(); err != nil {
 		s.Log.Error("Error checking requirements.txt: %v", err)
 		return err
@@ -182,42 +179,23 @@ func RunPython(s *Supplier) error {
 	return nil
 }
 
-func (s *Supplier) InstallNumPy() error {
 
-	s.Log.Info("------> Installing ML libs")
+func (s *Supplier) InstallPyZbar() error {
 
-    cmd := exec.Command("python", "-m", "pip", "install", "numpy", "scipy", "matplotlib")
+	s.Log.Info("------> Installing PyZbar libs")
+
+cmd := exec.Command("python", "-m", "pip", "install", "pyzbar")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
-		msg := fmt.Sprintf("ML libs installation failed due to: \n %s", output)
-		s.Log.Debug("[ML Installation Error]: %s", err)
-		s.Log.Debug(msg)
-		return err
-	} else {
-		msg := fmt.Sprintf("\n %s", output)
-		s.Log.Info(msg)
-		s.Log.Info("------> ML libs installed ")
-	}
-        return nil
-}
-
-func (s *Supplier) InstallZbar() error {
-
-	s.Log.Info("------> Installing Zbar libs")
-
-cmd := exec.Command("python", "-m", "pip", "install", "zbar-py")
-	output, err := cmd.CombinedOutput()
-
-	if err != nil {
-			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
-			s.Log.Debug("[Zbar Installation Error]: %s", err)
+			msg := fmt.Sprintf("PyZbar libs installation failed due to: \n %s", output)
+			s.Log.Debug("[PyZbar Installation Error]: %s", err)
 			s.Log.Debug(msg)
 			return err
 	} else {
 			msg := fmt.Sprintf("\n %s", output)
 			s.Log.Info(msg)
-			s.Log.Info("------> Zbar libs installed ")
+			s.Log.Info("------> PyZbar libs installed ")
 	}
 	return nil
 }
