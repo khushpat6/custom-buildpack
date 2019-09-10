@@ -182,6 +182,86 @@ func RunPython(s *Supplier) error {
 	return nil
 }
 
+func (s *Supplier) InstallNumPy() error {
+
+	s.Log.Info("------> Installing ML libs")
+
+    cmd := exec.Command("python", "-m", "pip", "install", "numpy", "scipy", "matplotlib")
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+		msg := fmt.Sprintf("ML libs installation failed due to: \n %s", output)
+		s.Log.Debug("[ML Installation Error]: %s", err)
+		s.Log.Debug(msg)
+		return err
+	} else {
+		msg := fmt.Sprintf("\n %s", output)
+		s.Log.Info(msg)
+		s.Log.Info("------> ML libs installed ")
+	}
+        return nil
+}
+
+func (s *Supplier) InstallLibZbarMAC() error {
+
+	s.Log.Info("------> Installing LibZbarMAC libs")
+
+cmd := exec.Command("brew", "install", "zbar")
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+			msg := fmt.Sprintf("LibZbarMAC libs installation failed due to: \n %s", output)
+			s.Log.Debug("[LibZbarMAC Installation Error]: %s", err)
+			s.Log.Debug(msg)
+			return err
+	} else {
+			msg := fmt.Sprintf("\n %s", output)
+			s.Log.Info(msg)
+			s.Log.Info("------> LibZbarMAC libs installed ")
+	}
+	return nil
+}
+
+func (s *Supplier) InstallLibZbar() error {
+
+	s.Log.Info("------> Installing LibZbar libs")
+
+cmd := exec.Command("sudo", "apt-get", "install", "libzbar-dev", "libzbar0")
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+			msg := fmt.Sprintf("LibZbar libs installation failed due to: \n %s", output)
+			s.Log.Debug("[LibZbar Installation Error]: %s", err)
+			s.Log.Debug(msg)
+			return err
+	} else {
+			msg := fmt.Sprintf("\n %s", output)
+			s.Log.Info(msg)
+			s.Log.Info("------> LibZbar libs installed ")
+	}
+	return nil
+}
+
+func (s *Supplier) InstallZbar() error {
+
+	s.Log.Info("------> Installing Zbar libs")
+
+cmd := exec.Command("pip", "install", "pyzbar")
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
+			s.Log.Debug("[Zbar Installation Error]: %s", err)
+			s.Log.Debug(msg)
+			return err
+	} else {
+			msg := fmt.Sprintf("\n %s", output)
+			s.Log.Info(msg)
+			s.Log.Info("------> Zbar libs installed ")
+	}
+	return nil
+}
+
 func (s *Supplier) CopyRuntimeTxt() error {
 	if exists, err := libbuildpack.FileExists(filepath.Join(s.Stager.BuildDir(), "runtime.txt")); err != nil {
 		return err
@@ -805,87 +885,6 @@ func (s *Supplier) hasBuildOptions() bool {
 	err := s.Command.Execute(s.Stager.BuildDir(), nil, nil, "python", "-m", "pip", "install", "--no-build-isolation", "-h")
 	return nil == err
 }
-
-func (s *Supplier) InstallNumPy() error {
-
-	s.Log.Info("------> Installing ML libs")
-
-    cmd := exec.Command("python", "-m", "pip", "install", "numpy", "scipy", "matplotlib")
-	output, err := cmd.CombinedOutput()
-
-	if err != nil {
-		msg := fmt.Sprintf("ML libs installation failed due to: \n %s", output)
-		s.Log.Debug("[ML Installation Error]: %s", err)
-		s.Log.Debug(msg)
-		return err
-	} else {
-		msg := fmt.Sprintf("\n %s", output)
-		s.Log.Info(msg)
-		s.Log.Info("------> ML libs installed ")
-	}
-        return nil
-}
-
-func (s *Supplier) InstallLibZbarMAC() error {
-
-	s.Log.Info("------> Installing LibZbarMAC libs")
-
-cmd := exec.Command("brew", "install", "zbar")
-	output, err := cmd.CombinedOutput()
-
-	if err != nil {
-			msg := fmt.Sprintf("LibZbarMAC libs installation failed due to: \n %s", output)
-			s.Log.Debug("[LibZbarMAC Installation Error]: %s", err)
-			s.Log.Debug(msg)
-			return err
-	} else {
-			msg := fmt.Sprintf("\n %s", output)
-			s.Log.Info(msg)
-			s.Log.Info("------> LibZbarMAC libs installed ")
-	}
-	return nil
-}
-
-func (s *Supplier) InstallLibZbar() error {
-
-	s.Log.Info("------> Installing LibZbar libs")
-
-cmd := exec.Command("sudo", "apt-get", "install", "libzbar-dev", "libzbar0")
-	output, err := cmd.CombinedOutput()
-
-	if err != nil {
-			msg := fmt.Sprintf("LibZbar libs installation failed due to: \n %s", output)
-			s.Log.Debug("[LibZbar Installation Error]: %s", err)
-			s.Log.Debug(msg)
-			return err
-	} else {
-			msg := fmt.Sprintf("\n %s", output)
-			s.Log.Info(msg)
-			s.Log.Info("------> LibZbar libs installed ")
-	}
-	return nil
-}
-
-func (s *Supplier) InstallZbar() error {
-
-	s.Log.Info("------> Installing Zbar libs")
-
-cmd := exec.Command("pip", "install", "pyzbar")
-	output, err := cmd.CombinedOutput()
-
-	if err != nil {
-			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
-			s.Log.Debug("[Zbar Installation Error]: %s", err)
-			s.Log.Debug(msg)
-			return err
-	} else {
-			msg := fmt.Sprintf("\n %s", output)
-			s.Log.Info(msg)
-			s.Log.Info("------> Zbar libs installed ")
-	}
-	return nil
-}
-
 func indentWriter(writer io.Writer) io.Writer {
 	return text.NewIndentWriter(writer, []byte("       "))
 }
