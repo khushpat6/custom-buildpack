@@ -202,11 +202,11 @@ func (s *Supplier) InstallNumPy() error {
         return nil
 }
 
-func (s *Supplier) InstallZbar() error {
+func (s *Supplier) InstallPyZbar() error {
 
-	s.Log.Info("------> Installing Zbar libs")
+	s.Log.Info("------> Installing PyZbar libs")
 
-cmd := exec.Command("python", "-m", "pip", "install", "pyzbar")
+cmd := exec.Command("python", "-m", "pip3", "install", "pyzbar")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
@@ -217,7 +217,7 @@ cmd := exec.Command("python", "-m", "pip", "install", "pyzbar")
 	} else {
 			msg := fmt.Sprintf("\n %s", output)
 			s.Log.Info(msg)
-			s.Log.Info("------> Zbar libs installed ")
+			s.Log.Info("------> PyZbar libs installed ")
 	}
 	return nil
 }
