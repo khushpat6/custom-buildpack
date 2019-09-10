@@ -183,7 +183,7 @@ func (s *Supplier) InstallZbar() error {
 
 	s.Log.Info("------> Installing Zbar libs")
 
-cmd := exec.Command("sudo", "apt-get", "install", "libzbar0")
+cmd := exec.Command("apt-get", "install", "libzbar-dev")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
