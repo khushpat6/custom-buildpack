@@ -64,8 +64,9 @@ func (s *Supplier) InstallZbar() error {
 	s.Log.Info("------> Installing Zbar libs")
 
 	cmd := exec.Command("sudo", "apt-get", "install", "libzbar0")
-	stdout, err := cmd.InstallZbar()
+	//stdout, err := cmd.InstallZbar()
 	//output, err := cmd.CombinedOutput()
+	output, err := cmd.InstallZbar()
 
 	if err != nil {
 			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
