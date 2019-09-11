@@ -72,7 +72,7 @@ func Run(s *Supplier) error {
 }
 
 func RunPython(s *Supplier) error {
-	s.Log.BeginStep("Supplying Python")
+	s.Log.BeginStep("I am Supplying Python")
 
 	dirSnapshot := snapshot.Dir(s.Stager.BuildDir(), s.Log)
 
