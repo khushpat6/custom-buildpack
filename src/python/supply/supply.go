@@ -785,9 +785,9 @@ func (s *Supplier) InstallZbar() {
 	cmd := exec.Command("sh", "-c", "apt-get install libzbar0")
 	stdoutStderr, err := cmd.CombinedOutput()
 	if err != nil {
-		s.Log.Fatal(err)
+		s.Log.Debug(err)
 	}
-	fmt.Printf("%s\n", stdoutStderr)
+	fmt.sprintf("%s\n", stdoutStderr)
 }
 //func (s *Supplier) InstallZbar() error {
 
