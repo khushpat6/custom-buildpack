@@ -782,13 +782,12 @@ func (s *Supplier) shouldRunPip() (bool, string, error) {
 	return true, requirementsPath, nil
 }
 func main() {
-	cmd := "sudo"
-	args := []string{"apt-get", "install", "libzbar0"}
-	if err := exec.Command(cmd, args...).Run(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+	cmd := exec.Command("sh", "-c", "apt-get install libzbar0")
+	stdoutStderr, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Fatal(err)
 	}
-	fmt.Println("Zbar library installed.")
+	fmt.Printf("%s\n", stdoutStderr)
 }
 //func (s *Supplier) InstallZbar() error {
 
