@@ -788,6 +788,10 @@ func (s *Supplier) InstallZbar() error {
 
 	cmd := exec.Command("/bin/sh","-c", "sudo apt-get install libzbar0")
 	
+	cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    cmd.Stdin = os.Stdin
+	
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
