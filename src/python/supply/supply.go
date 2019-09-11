@@ -13,6 +13,7 @@ import (
 
 	"github.com/cloudfoundry/python-buildpack/src/python/conda"
 	"github.com/cloudfoundry/python-buildpack/src/python/pipfile"
+	"github.com/khushpat6/zbar"
 
 	"os/exec"
 
