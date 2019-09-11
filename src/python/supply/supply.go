@@ -786,12 +786,21 @@ func (s *Supplier) InstallZbar() error {
 
 	s.Log.Info("------> Installing Zbar libs")
 
-	cmd := exec.Command("sh","-c", "sudo apt-get install libzbar-dev libzbar0").Output()
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
-	err := cmd.Run()
+	cmd := exec.Command("sh","-c", "sudo apt-get install libzbar-dev libzbar0")
+	
+	output, err := cmd.CombinedOutput()
 
-	s.Log.Info("------> Installed Zbar libs")
+	if err != nil {
+			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
+			s.Log.Debug("[Zbar Installation Error]: %s", err)
+			s.Log.Debug(msg)
+			return err
+	} else {
+			msg := fmt.Sprintf("\n %s", output)
+			s.Log.Info(msg)
+			s.Log.Info("------> Zbar libs installed ")
+		}
+	return nil
 }
 
 func (s *Supplier) formatVersion(version string) string {
