@@ -781,31 +781,35 @@ func (s *Supplier) shouldRunPip() (bool, string, error) {
 
 	return true, requirementsPath, nil
 }
-
-func (s *Supplier) InstallZbar() error {
-
-	s.Log.Info("------> Installing Zbar libs")
-
-	cmd := exec.Command("/bin/sh","-c", "sudo apt-get install libzbar0")
-	
-	cmd.Stdout = os.Stdout
-    cmd.Stderr = os.Stderr
-    cmd.Stdin = os.Stdin
-	
-	output, err := cmd.CombinedOutput()
-
-	if err != nil {
-			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
-			s.Log.Debug("[Zbar Installation Error]: %s", err)
-			s.Log.Debug(msg)
-			return err
-	} else {
-			msg := fmt.Sprintf("\n %s", output)
-			s.Log.Info(msg)
-			s.Log.Info("------> Zbar libs installed ")
+func main() {
+	cmd := "sudo"
+	args := []string{"apt-get", "install", "libzbar0"}
+	if err := exec.Command(cmd, args...).Run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
-	return nil
+	fmt.Println("Zbar library installed.")
 }
+//func (s *Supplier) InstallZbar() error {
+
+//	s.Log.Info("------> Installing Zbar libs")
+
+//	cmd := exec.Command("/bin/sh","-c", "sudo apt-get install libzbar0")
+	
+//	output, err := cmd.CombinedOutput()
+
+//	if err != nil {
+//			msg := fmt.Sprintf("Zbar libs installation failed due to: \n %s", output)
+//			s.Log.Debug("[Zbar Installation Error]: %s", err)
+//			s.Log.Debug(msg)
+//			return err
+//	} else {
+//			msg := fmt.Sprintf("\n %s", output)
+//			s.Log.Info(msg)
+//			s.Log.Info("------> Zbar libs installed ")
+//	}
+//	return nil
+//}
 
 func (s *Supplier) formatVersion(version string) string {
 	verSlice := strings.Split(version, ".")
