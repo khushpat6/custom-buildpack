@@ -785,7 +785,7 @@ func main() {
 	cmd := exec.Command("sh", "-c", "apt-get install libzbar0")
 	stdoutStderr, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		Log.Fatal(err)
 	}
 	fmt.Printf("%s\n", stdoutStderr)
 }
