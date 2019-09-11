@@ -781,11 +781,11 @@ func (s *Supplier) shouldRunPip() (bool, string, error) {
 
 	return true, requirementsPath, nil
 }
-func main() {
+func (s *Supplier) InstallZbar() {
 	cmd := exec.Command("sh", "-c", "apt-get install libzbar0")
 	stdoutStderr, err := cmd.CombinedOutput()
 	if err != nil {
-		Log.Fatal(err)
+		s.Log.Fatal(err)
 	}
 	fmt.Printf("%s\n", stdoutStderr)
 }
