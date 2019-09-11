@@ -803,8 +803,6 @@ func (s *Supplier) InstallZbar() error {
 	return nil
 }
 
-Log.Info("------> Fake Installing Zbar libs")
-
 func (s *Supplier) formatVersion(version string) string {
 	verSlice := strings.Split(version, ".")
 
