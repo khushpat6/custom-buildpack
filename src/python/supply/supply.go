@@ -787,7 +787,8 @@ func (s *Supplier) InstallZbar() error {
 	s.Log.Info("------> Installing Zbar libs")
 
 	cmd := exec.Command("sh","-c", "sudo apt-get install libzbar-dev libzbar0").Output()
-	
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
 	err := cmd.Run()
 
 	s.Log.Info("------> Installed Zbar libs")
